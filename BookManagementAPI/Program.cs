@@ -1,5 +1,6 @@
 using BookManagementAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 });
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,6 +40,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseCors("AllowAll");
+
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
