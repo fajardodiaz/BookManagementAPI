@@ -1,6 +1,8 @@
+using BookManagementAPI.Configurations;
 using BookManagementAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddCors(options =>
 });
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
+// Adding AutoMapper
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

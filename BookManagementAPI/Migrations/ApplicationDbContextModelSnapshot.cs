@@ -39,7 +39,7 @@ namespace BookManagementAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.Book", b =>
@@ -70,7 +70,7 @@ namespace BookManagementAPI.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.BookAuthorMap", b =>
@@ -85,7 +85,7 @@ namespace BookManagementAPI.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("BookAuthorMap");
+                    b.ToTable("BookAuthorMap", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.BookCategoryMap", b =>
@@ -100,7 +100,7 @@ namespace BookManagementAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BookCategoriesMap");
+                    b.ToTable("BookCategoriesMap", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.Category", b =>
@@ -121,7 +121,7 @@ namespace BookManagementAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.Publisher", b =>
@@ -147,7 +147,7 @@ namespace BookManagementAPI.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publisher", (string)null);
                 });
 
             modelBuilder.Entity("BookManagementAPI.Data.Book", b =>

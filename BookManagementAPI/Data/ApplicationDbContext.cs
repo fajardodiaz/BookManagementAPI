@@ -10,18 +10,23 @@ namespace BookManagementAPI.Data
 
         }
 
-        public DbSet<Book> Books { get; set; }
+        //Models
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Publisher> Publisher { get; set; }
+        
+        //Relation Tables
         public DbSet<BookAuthorMap> BookAuthorMap { get; set; }
         public DbSet<BookCategoryMap> BookCategoriesMap { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new BookConfig());
+            // Models
             modelBuilder.ApplyConfiguration(new AuthorConfig());
+            modelBuilder.ApplyConfiguration(new BookConfig());
             modelBuilder.ApplyConfiguration(new CategoryConfig());
             modelBuilder.ApplyConfiguration(new PublisherConfig());
+            // Relation Tables
             modelBuilder.ApplyConfiguration(new BookAuthorConfig());
             modelBuilder.ApplyConfiguration(new BookCategoryConfig());
         }
