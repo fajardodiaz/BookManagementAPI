@@ -68,8 +68,6 @@ namespace BookManagementAPI.Controllers
             // Update the Author
             _mapper.Map(updateAuthorDto, author);
 
-            //_context.Entry(author).State = EntityState.Modified;
-
             try
             {
                 _context.Update(author);
@@ -93,7 +91,7 @@ namespace BookManagementAPI.Controllers
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Author>> PostAuthor(CreateAuthorDto authorDto)
+        public async Task<ActionResult<GetAuthorDto>> PostAuthor(CreateAuthorDto authorDto)
         {
             var author = _mapper.Map<Author>(authorDto);
             await _context.Authors.AddAsync(author);
