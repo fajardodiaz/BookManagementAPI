@@ -1,25 +1,21 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+USER root
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["BookManagementAPI/BookManagementAPI.csproj", "BookManagementAPI/"]
-RUN dotnet restore "./BookManagementAPI/BookManagementAPI.csproj"
+COPY *.csproj ./
+RUN dotnet restore
+RUN dotnet workload update
+RUN dotnet tool install --global dotnet-ef
+RUN export PATH="$PATH:/root/.dotnet/tools"
+RUN dotnet ef migrations add InitialCreate
+RUN dotnet ef database update
+
 COPY . .
-WORKDIR "/src/BookManagementAPI"
-RUN dotnet build "./BookManagementAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish -c Release -o out
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./BookManagementAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+USER root
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BookManagementAPI.dll"]
+EXPOSE 80
+COPY --from=build-env /app/out .
+ENTRYPOINT [ "dotnet" , "BookManagementAPI.dll" ]
