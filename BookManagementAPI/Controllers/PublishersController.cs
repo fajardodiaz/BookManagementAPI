@@ -71,6 +71,7 @@ namespace BookManagementAPI.Controllers
             {
                 _context.Update(publisher);
                 await _context.SaveChangesAsync();
+                return Ok(publisher);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,8 +84,6 @@ namespace BookManagementAPI.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
         }
 
         // POST: api/Publishers

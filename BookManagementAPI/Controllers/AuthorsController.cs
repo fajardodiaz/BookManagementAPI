@@ -72,6 +72,7 @@ namespace BookManagementAPI.Controllers
             {
                 _context.Update(author);
                 await _context.SaveChangesAsync();
+                return Ok(author);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,7 +86,6 @@ namespace BookManagementAPI.Controllers
                 }
             }
 
-            return NoContent();
         }
 
         // POST: api/Authors

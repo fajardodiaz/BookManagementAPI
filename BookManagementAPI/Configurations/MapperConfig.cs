@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookManagementAPI.Data;
 using BookManagementAPI.Models.Dtos.AuthorDto;
+using BookManagementAPI.Models.Dtos.Category;
 using BookManagementAPI.Models.Dtos.PublisherDto;
 
 namespace BookManagementAPI.Configurations
@@ -20,6 +21,12 @@ namespace BookManagementAPI.Configurations
             CreateMap<Publisher, CreatePublisherDto>().ReverseMap();
             CreateMap<Publisher, GetPublisherDto>().ReverseMap();
             CreateMap<Publisher, UpdateAuthorDto>().ReverseMap();
+
+            // Category Dtos
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CreateCategoryDto>().ReverseMap();
+            CreateMap<Category, GetCategoryDto>().ReverseMap();
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap();
         }
     }
 }
